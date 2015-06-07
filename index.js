@@ -6,6 +6,7 @@ var cheerio = require('cheerio');
 var lessonUrl = "http://www.choctawschool.com/lesson-of-the-day.aspx";
 
 request(lessonUrl, function (error, response, body) {
+    var $;
     var lessonText;
 
     if (error || response.statusCode !== 200) {
@@ -13,12 +14,12 @@ request(lessonUrl, function (error, response, body) {
         process.exit();
     }
 
-    lessonText = processLesson(body);
+    $ = cheerio.load(body);
+    lessonText = processLesson($);
     console.log(lessonText);
 });
 
-function processLesson(body) {
-    var $ = cheerio.load(body);
+function processLesson($) {
     var children = $("#aspnetform")[0].children;
     var tag;
     var text = "";
