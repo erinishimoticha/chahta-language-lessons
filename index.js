@@ -1,3 +1,5 @@
+"use strict";
+
 var request = require('request');
 var cheerio = require('cheerio');
 
@@ -17,10 +19,16 @@ function processLesson(body) {
     var children = $("#aspnetform")[0].children;
     var tag;
     var text = "";
+    var foundVocab = false;
 
     function processChild(each) {
-        if (each.type === "text" && each.data.match(/\S/)) {
-            each.data.replace(/[\n\r]/i, "");
+        if (each.data && each.data.match(/vocab/i)) {
+            foundVocab = true;
+            each.data = each.data.replace(/vocabulary: */i, "");
+        }
+
+        if (each.type === "text" && each.data.match(/\S/) && foundVocab) {
+            each.data = each.data.replace(/[\n\r]/i, " ");
             text += each.data + "\n";
         }
 
