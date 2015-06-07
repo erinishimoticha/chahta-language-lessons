@@ -1,0 +1,19 @@
+{
+  "name": "chahta-language-lessons",
+  "version": "1.0.0",
+  "description": "Share lessons from ChoctawSchool.com on Facebook.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/erinspice/chahta-language-lessons"
+  },
+  "author": "Erin Spiceland <yes@erin.codes>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/erinspice/chahta-language-lessons/issues"
+  },
+  "homepage": "https://github.com/erinspice/chahta-language-lessons"
+}
