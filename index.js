@@ -6,12 +6,15 @@ var cheerio = require('cheerio');
 var lessonUrl = "http://www.choctawschool.com/lesson-of-the-day.aspx";
 
 request(lessonUrl, function (error, response, body) {
+    var lessonText;
+
     if (error || response.statusCode !== 200) {
         console.log("Can't access lesson of the day page. Giving up!");
         process.exit();
     }
 
-    processLesson(body);
+    lessonText = processLesson(body);
+    console.log(lessonText);
 });
 
 function processLesson(body) {
@@ -22,6 +25,11 @@ function processLesson(body) {
     var relevant = undefined;
 
     function processChild(each) {
+        if (each.type === "tag" && each.name === "img") {
+            console.log("found the image", each.attribs.src);
+            return;
+        }
+
         if (each.data) {
             if (relevant === undefined && each.data.match(/vocab/i)) {
                 relevant = true;
@@ -42,5 +50,5 @@ function processLesson(body) {
     }
 
     children.forEach(processChild);
-    console.log(text);
+    return text;
 }
