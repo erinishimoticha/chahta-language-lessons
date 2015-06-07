@@ -39,14 +39,12 @@ function processImage($) {
         }
     }
 
-
     children.every(processChild);
     return url;
 }
 
 function processLesson($) {
     var children = $("#aspnetform")[0].children;
-    var tag;
     var text = "";
     var relevant = undefined;
 
