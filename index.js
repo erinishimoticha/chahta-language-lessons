@@ -19,15 +19,19 @@ function processLesson(body) {
     var children = $("#aspnetform")[0].children;
     var tag;
     var text = "";
-    var foundVocab = false;
+    var relevant = undefined;
 
     function processChild(each) {
-        if (each.data && each.data.match(/vocab/i)) {
-            foundVocab = true;
-            each.data = each.data.replace(/vocabulary: */i, "");
+        if (each.data) {
+            if (relevant === undefined && each.data.match(/vocab/i)) {
+                relevant = true;
+                each.data = each.data.replace(/vocabulary: */i, "");
+            } else if (each.data.match(/download/i)) {
+                relevant = false;
+            }
         }
 
-        if (each.type === "text" && each.data.match(/\S/) && foundVocab) {
+        if (each.type === "text" && each.data.match(/\S/) && relevant) {
             each.data = each.data.replace(/[\n\r]/i, " ");
             text += each.data + "\n";
         }
