@@ -2,24 +2,43 @@
 
 var request = require('request');
 var cheerio = require('cheerio');
+var fs = require('fs');
 
-var lessonUrl = "http://www.choctawschool.com/lesson-of-the-day.aspx";
+var baseUrl = "http://www.choctawschool.com";
+var lessonPath = "/lesson-of-the-day.aspx";
+var mediaPath = "media"
 
-request(lessonUrl, function (error, response, body) {
+request(baseUrl + lessonPath, function (error, response, body) {
     var $;
     var lessonText;
     var imageUrl;
+    var imageFilename;
 
     if (error || response.statusCode !== 200) {
-        console.log("Can't access lesson of the day page. Giving up!");
+        console.log("Can't access lesson of the day page. Giving up!", error || response.statusCode);
         process.exit();
     }
 
     $ = cheerio.load(body);
     lessonText = processLesson($);
     imageUrl = processImage($);
+    imageFilename = imageUrl.replace(/.*\//, "/");
     console.log(lessonText);
     console.log(imageUrl);
+    console.log(imageFilename);
+
+    if (fs.existsSync(mediaPath + imageFilename)) {
+        console.log("Old lesson, nothing to do.");
+    }
+
+    request.get({url: baseUrl + imageUrl, encoding: 'binary'}, function (err, response, body) {
+        fs.writeFile(mediaPath + imageFilename, body, 'binary', function(err) {
+            if (err) {
+                console.log("Can't access lesson of the day page. Giving up!", err);
+                process.exit();
+            }
+        });
+    });
 });
 
 function processImage($) {
