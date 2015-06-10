@@ -1,0 +1,12 @@
+"use strict";
+
+/**
+ * Facebook app configuration
+ */
+module.exports = {
+    'facebookAuth': {
+        'clientID': 'replace-me',
+        'clientSecret': 'replace-me',
+        'callbackURL': 'http://localhost:8080/auth/facebook/callback'
+    }
+};

@@ -1,0 +1,8 @@
+"use strict";
+
+/**
+ * Server configuration
+ */
+module.exports = {
+    'sessionSecret': 'replace-me'
+};

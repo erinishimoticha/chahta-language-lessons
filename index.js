@@ -6,7 +6,7 @@ var fs = require('fs');
 
 var baseUrl = "http://www.choctawschool.com";
 var lessonPath = "/lesson-of-the-day.aspx";
-var mediaPath = "media"
+var mediaPath = "media";
 
 request(baseUrl + lessonPath, function (error, response, body) {
     var $;
@@ -65,7 +65,7 @@ function processImage($) {
 function processLesson($) {
     var children = $("#aspnetform")[0].children;
     var text = "";
-    var relevant = undefined;
+    var relevant;
 
     function processChild(each) {
         if (each.data) {
