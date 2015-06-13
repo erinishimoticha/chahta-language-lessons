@@ -8,38 +8,46 @@ var baseUrl = "http://www.choctawschool.com";
 var lessonPath = "/lesson-of-the-day.aspx";
 var mediaPath = "media";
 
-request(baseUrl + lessonPath, function (error, response, body) {
-    var $;
-    var lessonText;
-    var imageUrl;
-    var imageFilename;
+function check() {
+    console.log("Checking for a new lesson.");
 
-    if (error || response.statusCode !== 200) {
-        console.log("Can't access lesson of the day page. Giving up!", error || response.statusCode);
-        process.exit();
-    }
+    request(baseUrl + lessonPath, function (error, response, body) {
+        var $;
+        var lessonText;
+        var imageUrl;
+        var imageFilename;
 
-    $ = cheerio.load(body);
-    lessonText = processLesson($);
-    imageUrl = processImage($);
-    imageFilename = imageUrl.replace(/.*\//, "/");
-    console.log(lessonText);
-    console.log(imageUrl);
-    console.log(imageFilename);
+        if (error || response.statusCode !== 200) {
+            console.log("Can't access lesson of the day page. Giving up!", error || response.statusCode);
+            process.exit();
+        }
 
-    if (fs.existsSync(mediaPath + imageFilename)) {
-        console.log("Old lesson, nothing to do.");
-    }
+        $ = cheerio.load(body);
+        lessonText = processLesson($);
+        imageUrl = processImage($);
+        imageFilename = imageUrl.replace(/.*\//, "/");
+        console.log(lessonText);
+        console.log(imageUrl);
+        console.log(imageFilename);
 
-    request.get({url: baseUrl + imageUrl, encoding: 'binary'}, function (err, response, body) {
-        fs.writeFile(mediaPath + imageFilename, body, 'binary', function(err) {
-            if (err) {
-                console.log("Can't access lesson of the day page. Giving up!", err);
-                process.exit();
-            }
+        if (fs.existsSync(mediaPath + imageFilename)) {
+            console.log("Old lesson, nothing to do.");
+        }
+
+        request.get({url: baseUrl + imageUrl, encoding: 'binary'}, function (err, response, body) {
+            fs.writeFile(mediaPath + imageFilename, body, 'binary', function(err) {
+                if (err) {
+                    console.log("Can't access lesson of the day page. Giving up!", err);
+                    process.exit();
+                }
+            });
         });
     });
-});
+}
+
+module.exports = {
+    check: check
+};
 
 function processImage($) {
     var children = $("#aspnetform")[0].children;
