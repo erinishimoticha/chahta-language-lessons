@@ -7,6 +7,7 @@ var fs = require('fs');
 var baseUrl = "http://www.choctawschool.com";
 var lessonPath = "/lesson-of-the-day.aspx";
 var mediaPath = "media";
+check();
 
 function check() {
     console.log("Checking for a new lesson.");
@@ -44,10 +45,6 @@ function check() {
         });
     });
 }
-
-module.exports = {
-    check: check
-};
 
 function processImage($) {
     var children = $("#aspnetform")[0].children;

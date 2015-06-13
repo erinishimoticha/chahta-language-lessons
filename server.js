@@ -5,11 +5,6 @@
  */
 
 var express = require('express');
-var checker = require('./checker');
-
-setInterval(function () {
-    checker.check();
-}, 24 * 60 * 60 * 1000);
 
 var app = express();
 var port = process.env.PORT || 8080;
