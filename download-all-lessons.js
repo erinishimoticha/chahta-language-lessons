@@ -7,7 +7,7 @@ var async = require('async');
 var allPages = {};
 
 try {
-    allPages = require('./pageinfo');
+    allPages = require('./pageinfo.json');
 } catch (err) { /* start fresh */ }
 
 
@@ -90,7 +90,7 @@ function iterate() {
                 }
             }), function () {
                 // save lesson data
-                fs.writeFile('pageinfo.js', JSON.stringify(allPages, null, 4), function (err) {
+                fs.writeFile('pageinfo.json', JSON.stringify(allPages, null, 4), function (err) {
                     if (err) {
                         console.log("Couldn't write info file.", err.message);
                         return;
