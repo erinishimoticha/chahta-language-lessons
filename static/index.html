@@ -113,10 +113,10 @@
 <div ng-app="ChoctawLessons" ng-controller="LessonsCtrl">
     <table class="table">
         <tr ng-repeat="lesson in lessons">
-            <td>{{$index + 1}}</td>
+            <td>{{$index + 1}}.</td>
             <td>{{lesson.description}}</td>
             <td><textarea cols=60 rows=3>{{lesson.text}}</textarea></td>
-            <td><img src="{{lesson.imageUrl}}" style="max-height: 50px; max-width: auto"/></td>
+            <td><img src="/media/{{lesson.filename}}" style="max-height: 50px; max-width: auto"/></td>
         </tr>
     </table>
 </div>
