@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Facebook Login JavaScript Example</title>
-<meta charset="UTF-8">
-<script src="https://www.promisejs.org/polyfills/promise-done-7.0.1.min.js"></script>
+    <title>Facebook Login JavaScript Example</title>
+    <meta charset="UTF-8">
+    <script src="https://www.promisejs.org/polyfills/promise-done-7.0.1.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 </head>
 <body>
 <script>
@@ -16,6 +17,7 @@
         // for FB.getLoginStatus().
         if (response.status === 'connected') {
             // Logged into your app and Facebook.
+            document.getElementById('status').innerHTML = 'Logged in.';
             testAPI();
         } else if (response.status === 'not_authorized') {
             // The person is logged into Facebook, but not your app.
@@ -107,6 +109,15 @@
 
 <div id="status">
 </div>
+
+<div ng-app="ChoctawLessons" ng-controller="LessonsCtrl">
+    <div ng-repeat="lesson in lessons">
+        {{lesson.text}}<br>
+    </div>
+</div>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-resource.js"></script>
+    <script src="/js/lessons.js"></script>
 
 </body>
 </html>
