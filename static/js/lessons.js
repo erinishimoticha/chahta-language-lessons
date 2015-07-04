@@ -7,6 +7,6 @@ app.factory("Lessons", function ($resource) {
 app.controller('LessonsCtrl', function ($scope, Lessons) {
     Lessons.query(function (lessons) {
         console.log(lessons);
-        $scope.lessons = lessons;
+        $scope.lessons = lessons.slice(0, 10);
     });
 });

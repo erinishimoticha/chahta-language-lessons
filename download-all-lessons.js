@@ -13,7 +13,7 @@ try {
 
 var baseUrl = "http://www.choctawschool.com";
 var lessonPath = "/lesson-of-the-day.aspx";
-var mediaPath = "media";
+var mediaPath = "static/media";
 
 iterate();
 
